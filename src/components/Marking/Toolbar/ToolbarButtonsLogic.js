@@ -1,6 +1,7 @@
 import {canvasState,toolState,figureState} from '../../../helpers/importsState'
 import {Brush,Circle,Line,Rect} from '../../../helpers/importsTools'
 import {Polygon,Ellipse,Rectangle} from '../../../helpers/importsFigures'
+import { changeColor } from '../Settingbar/SettingbarButtonsLogic';
 
 const activeClass = (id) =>{
   const btns = document.getElementsByClassName("btn");
@@ -81,6 +82,7 @@ export const drawMask = () =>{
   toolState.setFillColor("white")
   toolState.setStrokeColor("white")
   canvasState.figureList.forEach( fig => {fig.draw()})   
+  changeColor()
 }
 
 export const save = () =>{

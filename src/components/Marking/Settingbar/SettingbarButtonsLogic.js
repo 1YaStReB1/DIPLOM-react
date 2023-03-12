@@ -72,4 +72,5 @@ export const drawMask = (e,setMaskName) =>{
   toolState.setFillColor("white")
   toolState.setStrokeColor("white")
   canvasState.figureList.forEach( fig => {fig.draw()})   
+  changeColor()
 }
