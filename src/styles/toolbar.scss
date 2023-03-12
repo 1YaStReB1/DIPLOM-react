@@ -1,0 +1,24 @@
+@import "./variables.scss";
+
+.toolbar{
+  box-sizing: border-box;
+  height: $toolbar-height;
+  display: flex;
+  background-color: $secondary-color;
+  align-items: center;
+  z-index: 999;
+  padding: 0 10px;
+  
+  border-bottom: 3px solid black;
+
+ 
+}
+.undo{
+  margin-left: auto;
+}
+.sdf{
+  background-color: black;
+  height: 1000px;
+}
+
+

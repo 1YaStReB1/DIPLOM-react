@@ -1,0 +1,26 @@
+@import "../variables.scss";
+
+.nav{
+  font-size: 1.1rem;
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  background-color: $third-color;
+  color: $text-color;
+  border-bottom: 3px solid black;
+  
+}
+
+.nav__items{
+  display: flex;
+  margin-right: 1rem;
+}
+
+.nav__item{
+  margin: 0 1rem;
+}
+
+

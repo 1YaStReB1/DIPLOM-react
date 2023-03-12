@@ -1,0 +1,26 @@
+@import "./variables.scss";
+
+.setting-bar{
+  height: $toolbar-height;
+  display: flex;
+  background-color: $secondary-color;
+  align-items: center;
+  width: 100%;
+
+  
+  border-bottom: 3px solid black;
+  
+}
+
+input[type=file]{
+  display: none;
+}
+
+.line__width{
+  color: rgb(228, 221, 221);
+  font-size: 1.1rem;
+}
+
+label{
+ margin: 0 1rem;
+}

@@ -1,0 +1,14 @@
+@import "./variables.scss";
+
+.canvas {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas{
+  border: 1px solid black;
+  background-color: white;
+}

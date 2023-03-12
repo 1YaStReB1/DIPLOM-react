@@ -1,0 +1,30 @@
+@import "./variables.scss";
+.btn{
+  height: 3rem;
+  width: 3rem;
+  margin: 0 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  background-size: cover;
+  background-color: white;
+  transition: all .2s linear;
+
+  &.active{
+    fill: $active-button;
+  }
+
+  &:hover{
+    background-color: rgb(216, 212, 212);
+    .icon {
+
+        fill: $active-button;
+      
+    }
+  }
+}
+
+.icon{
+  transition: all .2s linear;
+}
