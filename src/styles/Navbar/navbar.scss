@@ -11,12 +11,22 @@
   background-color: $third-color;
   color: $text-color;
   border-bottom: 3px solid black;
+
+  @media screen and (max-width: 500px) {
+    height: 3rem;
+   }
   
+  @media screen and (max-width: 330px) {
+    height: 2rem;
+   }
 }
 
 .nav__items{
   display: flex;
   margin-right: 1rem;
+  @media screen and (max-width: 500px) {
+    display: none;
+   }
 }
 
 .nav__item{

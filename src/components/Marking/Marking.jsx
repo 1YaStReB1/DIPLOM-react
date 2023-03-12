@@ -1,16 +1,22 @@
-import React from 'react'
-import Canvas from './Canvas'
-import SettingBar from './Settingbar/SettingBar'
-import Toolbar from './Toolbar/Toolbar'
+import React from "react";
+import Canvas from "./Canvas";
+import DontWorkMobily from "./DontWorkMobily";
+import SettingBar from "./Settingbar/SettingBar";
+import Toolbar from "./Toolbar/Toolbar";
 
 const Marking = () => {
-  return (
-    <>
-      <Toolbar></Toolbar>
-      <SettingBar></SettingBar>
-      <Canvas></Canvas>
-    </>
-  )
-}
+  let component =
+    window.innerWidth > 800 ? (
+      <>
+        <Toolbar></Toolbar>
+        <SettingBar></SettingBar>
+        <Canvas></Canvas>
+      </>
+    ) : (
+      <DontWorkMobily/>
+    );
 
-export default Marking
+  return <>{component}</>;
+};
+
+export default Marking;
