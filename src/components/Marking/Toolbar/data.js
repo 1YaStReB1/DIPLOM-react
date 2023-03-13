@@ -22,13 +22,13 @@ import undoIconSrc from "../../../assets/img/undo.svg";
 import drawMaskIconSrc from "../../../assets/img/drawMask.svg";
 
 export const data = {
-  brush: [selectBrush, penIconSrc],
-  rect: [selectRect,rectIconSrc],
-  circle: [selectCircle, circleIconSrc],
-  line: [selectLine, lineIconSrc],
-  undo: [undo, undoIconSrc],
-  redo: [redo, redoIconSrc],
-  drawMask: [drawMask, drawMaskIconSrc],
-  save: [save, saveIconSrc],
-  clear: [clearMask, clearIconSrc]
+  brush: [selectBrush, penIconSrc,"Рисование сплошной линией"],
+  rect: [selectRect,rectIconSrc, "Закрашенный прямоугольник"],
+  circle: [selectCircle, circleIconSrc,"Закрашенный овал"],
+  line: [selectLine, lineIconSrc, "Рисование прямыми линиями"],
+  undo: [undo, undoIconSrc,"Шаг назад"],
+  redo: [redo, redoIconSrc,"Шаг вперёд"],
+  drawMask: [drawMask, drawMaskIconSrc,"Нарисовать маску"],
+  save: [save, saveIconSrc,"Сохранить"],
+  clear: [clearMask, clearIconSrc,"Очистить"]
 };

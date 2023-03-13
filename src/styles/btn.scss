@@ -6,6 +6,7 @@
   border: 1px solid black;
   border-radius: 5px;
   outline: none;
+  position: relative;
   cursor: pointer;
   background-size: cover;
   background-color: white;
@@ -15,8 +16,10 @@
     fill: $active-button;
   }
 
+  
   &:hover{
     background-color: rgb(216, 212, 212);
+   
     .icon {
 
         fill: $active-button;
@@ -27,4 +30,15 @@
 
 .icon{
   transition: all .2s linear;
+}
+
+.tooltip{
+   position: absolute;
+      width: 130px;
+      height: 40px;
+      background-color: #fff;
+      border: 1px solid black;
+      z-index: 999;
+      
+    
 }

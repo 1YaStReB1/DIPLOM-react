@@ -13,6 +13,7 @@ const Toolbar = () => {
             name={name}
             onClick={data[name][0]}
             src={data[name][1]}
+            tooltipText={data[name][2]}
           />
         );
       })}
