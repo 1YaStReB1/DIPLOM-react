@@ -9,7 +9,7 @@ const Marking = () => {
     window.innerWidth > 800 ? (
       <>
         <Toolbar></Toolbar>
-        {/* <SettingBar></SettingBar> */}
+        <SettingBar></SettingBar>
         <Canvas></Canvas>
       </>
     ) : (
