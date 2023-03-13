@@ -4,6 +4,7 @@ import {
   drawMask,
   redo,
   save,
+  saveImage,
   selectBrush,
   selectCircle,
   selectLine,
@@ -20,6 +21,7 @@ import redoIconSrc from "../../../assets/img/redo.svg";
 import saveIconSrc from "../../../assets/img/save.svg";
 import undoIconSrc from "../../../assets/img/undo.svg";
 import drawMaskIconSrc from "../../../assets/img/drawMask.svg";
+import saveMaskIconSrc from "../../../assets/img/saveImage.svg"
 
 export const data = {
   brush: [selectBrush, penIconSrc,"Рисование сплошной линией"],
@@ -29,6 +31,7 @@ export const data = {
   undo: [undo, undoIconSrc,"Шаг назад"],
   redo: [redo, redoIconSrc,"Шаг вперёд"],
   drawMask: [drawMask, drawMaskIconSrc,"Нарисовать маску"],
-  save: [save, saveIconSrc,"Сохранить"],
-  clear: [clearMask, clearIconSrc,"Очистить"]
+  clear: [clearMask, clearIconSrc,"Очистить"],
+  save: [save, saveIconSrc,"Сохранить маску"],
+  saveImage: [saveImage, saveMaskIconSrc,"Сохранить изображение"]
 };

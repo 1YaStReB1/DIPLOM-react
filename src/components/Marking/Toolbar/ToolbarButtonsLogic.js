@@ -108,3 +108,12 @@ export const save = () =>{
   link.href = url;
   link.click(); 
 }
+
+export const saveImage = () =>{
+
+  let link = document.createElement('a');
+  link.download = 'image.jpg';
+  const url  = canvasState.canvas.toDataURL();
+  link.href = url;
+  link.click(); 
+}
