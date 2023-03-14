@@ -9,6 +9,7 @@ import {
   selectCircle,
   selectLine,
   selectRect,
+  tet,
   undo,
 } from "./ToolbarButtonsLogic";
 
@@ -33,5 +34,6 @@ export const data = {
   drawMask: [drawMask, drawMaskIconSrc,"Нарисовать маску"],
   clear: [clearMask, clearIconSrc,"Очистить"],
   save: [save, saveIconSrc,"Сохранить маску"],
-  saveImage: [saveImage, saveMaskIconSrc,"Сохранить изображение"]
+  saveImage: [saveImage, saveMaskIconSrc,"Сохранить изображение"],
+  tt: [tet, saveMaskIconSrc,"Сохранить изображение"]
 };

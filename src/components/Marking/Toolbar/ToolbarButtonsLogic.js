@@ -1,7 +1,7 @@
 import {canvasState,toolState,figureState} from '../../../helpers/importsState'
 import {Brush,Circle,Line,Rect} from '../../../helpers/importsTools'
 import {Polygon,Ellipse,Rectangle} from '../../../helpers/importsFigures'
-import { changeColor } from '../Settingbar/SettingbarButtonsLogic';
+//import { changeColor } from '../Settingbar/SettingbarButtonsLogic';
 
 const activeClass = (id) =>{
   const btns = document.getElementsByClassName("btn");
@@ -36,6 +36,10 @@ export const selectLine = (e) =>{
   toolState.setTool(new Line(canvasState.canvas))
 }
 
+export const tet = (e) => {
+ // console.log(canvasState.test)
+  canvasState.tests()
+}
 
 export const undo = (e) =>{
   canvasState.undo()
@@ -57,7 +61,7 @@ export const drawMask = () =>{
     mask = JSON.parse(reader.result)
   }
 
-  if(file)
+  if(file){
     reader.readAsText(file);
 
   for(let figure in mask){
@@ -79,10 +83,14 @@ export const drawMask = () =>{
         canvasState.pushToFigure(figureState.figure)
     }
   }
-  toolState.setFillColor("white")
-  toolState.setStrokeColor("white")
+}
+console.log("fffff")
+  //toolState.setFillColor("white")
+  //toolState.setStrokeColor("white")
+  toolState.setStrokeColor("rgba(255, 255, 255, 1)")
+  toolState.setFillColor("rgba(255, 255, 255, 1)")
   canvasState.figureList.forEach( fig => {fig.draw()})   
-  changeColor()
+ // changeColor()
 }
 
 export const save = () =>{

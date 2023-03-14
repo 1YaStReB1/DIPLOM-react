@@ -36,6 +36,8 @@ export default class Line extends Tool {
       e.pageX - e.target.offsetLeft,
       e.pageY - e.target.offsetTop
     );
+    console.log( e.pageX - e.target.offsetLeft,
+      e.pageY - e.target.offsetTop)
     this.mouseDown = true;
     this.noPath = false;
     console.log("ggg");

@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { changeWidth, drawMask, loadImage } from "./SettingbarButtonsLogic";
+import { changeWidth, convertMaskToJson, drawMask, loadImage } from "./SettingbarButtonsLogic";
 import { changeColor } from "./SettingbarButtonsLogic";
 import BarButton from "../BarButton";
 import openMaskIconSrc from "../../../assets/img/openMask.svg";
 import openImageIconSrc from "../../../assets/img/open.svg";
+import convertIconSrc from "../../../assets/img/convert.svg";
 import "../../../styles/settingbar.scss";
 const SettingBar = () => {
   const imageRef = useRef();
@@ -79,6 +80,12 @@ const SettingBar = () => {
         Вставить маску <br />
         {maskName}
       </label>
+
+      <BarButton
+        name="openMask"
+        onClick={convertMaskToJson}
+        src={convertIconSrc}
+      />
     </div>
   );
 };

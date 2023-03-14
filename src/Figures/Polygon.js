@@ -9,6 +9,7 @@ export default class Polygon extends Figure {
     for(let i =2 ;i< this.points.length; i+=2){
     this.ctx.lineTo(this.points[i],this.points[i+1])
     }
+    this.ctx.stroke();
     this.ctx.fill();
   }
 }
