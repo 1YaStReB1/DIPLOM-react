@@ -4,7 +4,7 @@ import {
   figureState,
 } from "../../../helpers/importsState";
 import { Polygon, Ellipse, Rectangle } from "../../../helpers/importsFigures";
-import { obrMass } from "./obtMass";
+import { obrMass, rotate } from "./obtMass";
 
 export const changeWidth = (e) => {
   toolState.setLineWidth(e.target.value);
@@ -169,38 +169,91 @@ export const convertMaskToJson = () => {
 
   // test = [0,100,100,100,200,100,300,100,0,150,100,150,300,150,100,200,300,200,400,200,500,200,100,250,500,250,100,300,200,300,300,300,400,300,500,300]
 
-  // test = [200,100,250,100,150,150,300,150,100,200,350,200,150,250,300,250,200,300,250,300]
   //test = [447, 1, 449, 1, 451, 1, 454, 1]
   //test = [60, 148, 60, 149, 60, 150, 60, 150, 61, 150, 62, 150, 63, 150, 64, 150, 65, 128, 66, 150, 66, 128, 67, 150, 67, 128, 68, 150, 68]
+//test = [100,100,150,150,200,200,0,200,50,150]
 
-  // console.log(test)
+  //test = obrMass(test);
+  // for(let i = 0; i < test.length; i+=2) {
+  //   test.splice(i+2,6);
+  // }
+  
+  // test = [200,100,250,100,150,150,300,150,100,200,350,200,150,250,300,250,200,300,250,300]
+ //  test = [150,150,300,150,225,180,100,200,350,200,150,250,300,250,200,300,250,300]
+//АЛГОРИТМ ГРЭХЭМА
 
-  // console.log(test)
-  // console.log(test)
-
-  test = obrMass(test);
-
-  for (let i = 0; i < test.length - 1; i += 2) {
-    figureState.figure.addPoint(test[i], test[i + 1]);
+  let P = []; // создаем пустой массив
+ // console.log(test)
+  for (let i = 0; i < test.length/2; i++) {
+    P.push(i); // добавляем каждое число в массив
+  }
+ 
+  for (let i = 4; i < test.length; i+=2) {
+    let j = i/2;
+    // if(rotate([test[P[0]],test[P[0] + 1]], [test[P[j-1]*2],test[P[j-1]*2 + 1]], [test[P[j]*2],test[P[j]*2 + 1] ])===0){
+    //   test.splice(j,2)
+    //   i-=2
+    // }
+    
+    while (j > 1 && rotate([test[P[0]],test[P[0] + 1]], [test[P[j-1]*2],test[P[j-1]*2 + 1]], [test[P[j]*2],test[P[j]*2 + 1] ]) < 0) {
+      //console.log(P,j)
+   // console.log(test[P[j]*2],test[P[j]*2 + 1])
+   // console.log(test[P[j-1]*2],test[P[j-1]*2 + 1])
+      let temp = P[j]
+      P[j] =  P[j - 1]
+      P[j - 1] = temp
+      j -= 1;
+      
+    }
   }
 
+//console.log(test)
+let S = [P[0],P[1]]
+for (let i = 2; i < test.length/2; i ++) {
+  console.log(S)
+  console.log(test)
+  console.log(test[S[S.length-2]*2],test[S[S.length-2]*2+1])
+  console.log(test[S[S.length-1]*2],test[S[S.length-1]*2+1])
+  console.log(test[P[i]*2],test[P[i]*2 + 1] )
+  while (rotate([test[S[S.length-2]*2],test[S[S.length-2]*2+1]],[test[S[S.length-1]*2],test[S[S.length-1]*2+1]],[test[P[i]*2],test[P[i]*2 + 1] ])<0){
+
+    S.pop()
+  }
+  S.push(P[i])
+}
+
+console.log(P)
+P = S
+console.log(P)
+for (let i = 0; i < P.length; i ++) {
+  figureState.figure.addPoint(test[P[i]*2], test[P[i]*2+1]);
+}
+let MBO = figureState.figure.getPoints();
+
+
+  
   ctx.putImageData(imgData, 0, 0);
 
   toolState.setStrokeColor("rgba(0, 0, 255, 1)");
   toolState.setFillColor("rgba(0, 0, 255, 1)");
   toolState.setLineWidth(1);
-  test = figureState.figure.getPoints();
+  
+ 
+//console.log(test)
   ctx.beginPath();
-  ctx.moveTo(test[0], test[1]);
+ // ctx.moveTo(test[0], test[1]);
   let i = 0;
-  for (i = 2; i < test.length; i += 2) {
-    // if(test[i] >=500)
-    //   console.log(test[i] + l,test[i+1] + t)
-    ctx.lineTo(test[i], test[i + 1]);
+  for (i = 0; i < MBO.length; i+=2) {
+    
+   // console.log(test[i],test[i+1],i)
+    
+    ctx.lineTo(MBO[i], MBO[i+1]);
+    ctx.ellipse(MBO[i], MBO[i+1],3,3, 0,0,2*Math.PI);
+    ctx.moveTo(MBO[i], MBO[i+1]);
   }
-  ctx.lineTo(test[0], test[1]);
+ //ctx.lineTo(test[0], test[1]);
   ctx.stroke();
-  ctx.fill();
+  //ctx.fill();
 
   toolState.setStrokeColor("black");
   toolState.setFillColor("black");
