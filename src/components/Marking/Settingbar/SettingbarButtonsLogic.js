@@ -16,6 +16,7 @@ export const changeColor = (e) => {
 };
 
 export const loadImage = (e, setImageName) => {
+  
   if (!e.target.files.length) {
     return;
   }
@@ -27,14 +28,17 @@ export const loadImage = (e, setImageName) => {
   };
   if (file) {
     reader.readAsDataURL(file);
-
+    
     setImageName(file.name);
   } else {
     img.src = "";
   }
   img.onload = () => {
+    let s_h = img.height;
+    let s_w = img.width;
+    canvasState.setSize(s_w,s_h);
     let ctx = canvasState.canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvasState.canvaswidth, canvasState.canvas.height);
+    ctx.clearRect(0, 0, canvasState.canvas.width, canvasState.canvas.height);
     ctx.drawImage(
       img,
       0,

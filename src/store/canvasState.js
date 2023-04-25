@@ -3,7 +3,7 @@ import toolState from "./toolState";
 
 class CanvasState {
   canvas = null;
-
+  size = [700,450];
   test = []
   undoList = [];
   redoList = [];
@@ -16,6 +16,10 @@ class CanvasState {
 
   setCanvas(canvas) {
     this.canvas = canvas;
+  }
+
+  setSize(s_h, s_w){
+this.size = [s_h,s_w];
   }
   pushToFigure(data) {
     this.figureList.push(data);

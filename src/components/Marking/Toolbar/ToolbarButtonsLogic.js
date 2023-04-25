@@ -122,7 +122,24 @@ export const saveImage = () =>{
 
   let link = document.createElement('a');
   link.download = 'image.jpg';
-  const url  = canvasState.canvas.toDataURL();
-  link.href = url;
+  
+
+  //const url  = canvasState.canvas.toDataURL();
+  let canvas = document.createElement('canvas');
+  canvas.setAttribute('width', canvasState.size[0]);
+  canvas.setAttribute('height', canvasState.size[1]);
+  let context = canvas.getContext("2d")
+ 
+
+   context.drawImage(
+    canvasState.canvas,
+     0,
+     0,
+     canvas.width,
+     canvas.height
+   );
+  const url2  = canvas.toDataURL();
+
+  link.href = url2;
   link.click(); 
 }

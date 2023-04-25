@@ -24,6 +24,7 @@ const Canvas = observer(() => {
         ref={canvasRef}
         width={700}
         height={450}
+        // style={{width:"300px", height:"300px"}}
       ></canvas>
     </div>
   );
