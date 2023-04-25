@@ -84,13 +84,17 @@ export const drawMask = () =>{
     }
   }
 }
-console.log("fffff")
-  //toolState.setFillColor("white")
-  //toolState.setStrokeColor("white")
+let ctx = canvasState.canvas.getContext("2d");
+toolState.setFillColor("rgba(0, 0, 0, 1)")
+toolState.setStrokeColor("rgba(0, 0, 0, 1)")
+ctx.beginPath();
+ctx.rect(0, 0, canvasState.canvas.width, canvasState.canvas.height)
+ ctx.stroke();
+ ctx.fill();
+
   toolState.setStrokeColor("rgba(255, 255, 255, 1)")
   toolState.setFillColor("rgba(255, 255, 255, 1)")
   canvasState.figureList.forEach( fig => {fig.draw()})   
- // changeColor()
 }
 
 export const save = () =>{
@@ -105,9 +109,6 @@ export const save = () =>{
       data[figure][i] = canvasState.figureList[i].points
       }
     
-  
-
-
   let json = JSON.stringify(data);
   let b = new Blob([JSON.stringify(json)], {type : "application/json"})
   let link = document.createElement('a');

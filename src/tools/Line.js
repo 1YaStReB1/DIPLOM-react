@@ -36,11 +36,9 @@ export default class Line extends Tool {
       e.pageX - e.target.offsetLeft,
       e.pageY - e.target.offsetTop
     );
-    console.log( e.pageX - e.target.offsetLeft,
-      e.pageY - e.target.offsetTop)
+    
     this.mouseDown = true;
     this.noPath = false;
-    console.log("ggg");
     this.startX = e.pageX - e.target.offsetLeft;
     this.startY = e.pageY - e.target.offsetTop;
     this.saved = this.canvas.toDataURL();

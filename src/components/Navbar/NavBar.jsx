@@ -7,7 +7,6 @@ const NavBar = () => {
         <div className="nav__logo"></div>
         <div className="nav__items">
           <div className="nav__item">Ручная разметка</div>
-          <div className="nav__item">Тепловизор</div>
           <div className="nav__item">Оптический поток</div>
           <div className="nav__item">Настройки</div>
         </div>

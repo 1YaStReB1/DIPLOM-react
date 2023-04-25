@@ -16,11 +16,53 @@ input[type=file]{
   display: none;
 }
 
+input[type=range]{
+  margin-left: 15px;
+  width: 6.6rem;
+}
+
 .line__width{
   color: rgb(228, 221, 221);
   font-size: 1.1rem;
 }
 
 label{
- margin: 0 1rem;
+ margin: 0 0.84rem;
+}
+
+
+
+.algoritms{
+  appearance: none;
+  padding: 0.2rem 1.4rem 0.2rem 0.3rem;
+  border-radius: 5px;
+  margin-left: 5px;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.algoritms:focus{
+  box-shadow: 0 0 3px 1px black;
+}
+
+.select-wrapper{
+  position: relative;
+}
+
+.select-wrapper::before{
+  content:"";
+  position: absolute;
+  top: 50%;
+  right: 0.4rem;
+  transform: translateY(-50%);
+  display: block;
+
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  border: 0 solid transparent;
+  border-left-width: 0.4rem;
+  border-right-width: 0.4rem;
+  border-top: 0.4rem solid black;
 }

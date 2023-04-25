@@ -29,18 +29,6 @@ class CanvasState {
   }
 
   tests(){
-    let ctx = this.canvas.getContext("2d");
-    // for (let i=0;i<this.test.length-2;i+=2){
-    //   toolState.setStrokeColor("red")
-    //    toolState.setFillColor("red")
-    //    ctx.beginPath();
-    //    ctx.moveTo(this.test[i], this.test[i+1]);
-    //     ctx.lineTo(this.test[i]+1, this.test[i+1]+1);
-    //      ctx.stroke();
-
-      
-    // }
-    console.log(test)
    
   }
 

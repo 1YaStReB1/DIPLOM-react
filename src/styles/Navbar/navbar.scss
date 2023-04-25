@@ -30,7 +30,17 @@
 }
 
 .nav__item{
+  cursor: pointer;
   margin: 0 1rem;
+  border-radius: 5px;
+  padding: .5rem;
+  transition: all .2s linear;
+  &:hover{
+    color: $active-menu;
+    background-color: #fff;
+    box-shadow: 0 0 3px 0px white;
+  }
 }
+
 
 

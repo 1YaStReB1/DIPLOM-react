@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { changeWidth, convertMaskToJson, drawMask, loadImage } from "./SettingbarButtonsLogic";
+import {
+  changeWidth,
+  convertMaskToJson,
+  drawMask,
+  loadImage,
+} from "./SettingbarButtonsLogic";
 import { changeColor } from "./SettingbarButtonsLogic";
 import BarButton from "../BarButton";
 import openMaskIconSrc from "../../../assets/img/openMask.svg";
@@ -22,28 +27,42 @@ const SettingBar = () => {
     maskRef.current.click();
   };
 
+  const options = [
+    {value: 'sortPosledovat', text: 'sortPosledovat 🍏'},
+    {value: 'sortPointsDFS', text: 'sortPointsDFS 🍌'},
+    {value: 'sortPointsBFS', text: 'sortPointsBFS 🥝'},
+    {value: 'sortPoints', text: 'sortPoints 🥝'},
+    {value: 'obrMass', text: 'obrMass 🥝'},
+    {value: 'grahamAlgorithm', text: 'grahamAlgorithm 🥝'}
+  ];
+
+  const [selected, setSelected] = useState(options[0].value);
+
+  const selectAlgoritm = (e) => {
+    console.log(e.target.value);
+    setSelected(e.target.value);
+  };
   return (
     <div className="setting-bar">
-      <label htmlFor="line-width" className="line__width">
+      {/* <label htmlFor="line-width" className="line__width">
         Толщина линии
-      </label>
+      </label> */}
       <input
         onChange={(e) => {
           changeWidth(e);
         }}
-        style={{ margin: "0 10px" }}
+        
         id="line-width"
         type="range"
         defaultValue={1}
         min={1}
-        max={50}
+        max={30}
       />
       <input
-        style={{ margin: "0 10px" }}
+        style={{ margin: "0 8px" }}
         type="color"
         onChange={(e) => changeColor(e)}
       />
-
       <input
         ref={imageRef}
         id="image-input"
@@ -60,7 +79,6 @@ const SettingBar = () => {
         accept="application/JSON"
         onChange={(e) => drawMask(e, setMaskName)}
       />
-
       <BarButton
         name="openImage"
         onClick={openImageButton}
@@ -75,17 +93,24 @@ const SettingBar = () => {
         onClick={openMaskButton}
         src={openMaskIconSrc}
       />
-
       <label htmlFor="line-width" className="line__width">
         Вставить маску <br />
         {maskName}
       </label>
-
       <BarButton
         name="openMask"
-        onClick={convertMaskToJson}
+        onClick={(e) => {convertMaskToJson(selected)}}
         src={convertIconSrc}
       />
+    <div className="select-wrapper">
+        <select className="algoritms" value={selected} onChange={selectAlgoritm}>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.text}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 };
