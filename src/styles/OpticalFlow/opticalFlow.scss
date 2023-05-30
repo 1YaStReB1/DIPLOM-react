@@ -1,0 +1,70 @@
+@import "../variables.scss";
+
+.load_videos{
+  margin: 0 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 3rem;
+
+}
+.load_videos--btn{
+    margin: 10px 30px;
+    padding: 20px;
+    cursor: pointer;
+    width: 100%;
+    color: black;
+    font-size: 2rem;
+    text-align: center;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 3px black ;
+    transition: all .2s linear;
+
+@media screen and (max-width: 500px) {
+  max-width: 300px;
+  margin: 30px auto;
+  padding: 20px;
+  font-size: 1.5rem;
+}
+
+@media screen and (max-width: 330px) {
+  max-width: 200px;
+  margin: 20px auto;
+  padding: 10px;
+  font-size: 1rem;
+ }
+
+ @media screen and (max-width: 230px) {
+  max-width: 150px;
+  margin: 10px auto;
+  padding: 10px;
+  font-size: .7rem;
+ }
+
+ &:hover{
+  background-color: rgb(216, 212, 212);
+  color: $active-button;
+  
+}
+
+}
+
+
+.result_video{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text{
+  color: white;
+  font-size: 2rem;
+}
+
+.video{
+  height: 300%;
+  width: 300px;
+}

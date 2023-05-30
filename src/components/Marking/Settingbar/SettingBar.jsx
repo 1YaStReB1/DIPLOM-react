@@ -28,12 +28,10 @@ const SettingBar = () => {
   };
 
   const options = [
-    {value: 'sortPosledovat', text: 'sortPosledovat 🍏'},
-    {value: 'sortPointsDFS', text: 'sortPointsDFS 🍌'},
-    {value: 'sortPointsBFS', text: 'sortPointsBFS 🥝'},
-    {value: 'sortPoints', text: 'sortPoints 🥝'},
-    {value: 'obrMass', text: 'obrMass 🥝'},
-    {value: 'grahamAlgorithm', text: 'grahamAlgorithm 🥝'}
+    {value: 'sortPointsDFS', text: 'По векторам'},
+    {value: 'sortPointsBFS', text: 'В ширину'},
+    {value: 'obrMass', text: 'По границе'},
+    {value: 'grahamAlgorithm', text: 'Грэхэма'}
   ];
 
   const [selected, setSelected] = useState(options[0].value);
@@ -102,6 +100,8 @@ const SettingBar = () => {
         onClick={(e) => {convertMaskToJson(selected)}}
         src={convertIconSrc}
       />
+
+
     <div className="select-wrapper">
         <select className="algoritms" value={selected} onChange={selectAlgoritm}>
           {options.map((option) => (

@@ -24,6 +24,8 @@
 .nav__items{
   display: flex;
   margin-right: 1rem;
+  
+
   @media screen and (max-width: 500px) {
     display: none;
    }
@@ -31,15 +33,24 @@
 
 .nav__item{
   cursor: pointer;
+  outline: none;
+  text-decoration: none;
   margin: 0 1rem;
   border-radius: 5px;
   padding: .5rem;
   transition: all .2s linear;
+  color: white;
   &:hover{
     color: $active-menu;
     background-color: #fff;
     box-shadow: 0 0 3px 0px white;
   }
+}
+
+.active{
+  color: $active-menu;
+    background-color: #fff;
+    box-shadow: 0 0 3px 0px white;
 }
 
 

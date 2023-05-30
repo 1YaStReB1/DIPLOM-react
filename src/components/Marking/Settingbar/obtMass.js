@@ -1,105 +1,28 @@
-
 import canvasState from "../../../store/canvasState";
 import toolState from "../../../store/toolState";
 
 
 
-export const SortPosledovat = (points) => {
-  let ctx = canvasState.canvas.getContext("2d");
-  // Найти самую левую точку в массиве
-  let leftmostPoint = points.reduce(
-    (acc, p) => (p.X < acc.X ? p : acc),
-    points[0]
-  );
-  // Добавить самую левую точку в упорядоченный массив
-  const orderedPoints = [leftmostPoint];
-  let max = points.length;
-
-// Найти следующую точку и добавлять ее в упорядоченный массив
-let currentPoint = leftmostPoint;
-while (orderedPoints.length < max) {
-  let minDistance = Infinity;
-  let nextPoint = null;
-
-  //let idx = points.indexOf(currentPoint);
-  //const minIdx = idx > 100 ? idx - 100 : 0;
-  //const maxIdx = Math.min(points.length, idx + 100);
-  for (let i = 0; i < points.length; i++) {
-    const candidate = points[i];
-
-    if (
-      !orderedPoints.some((p) => p.X === candidate.X && p.Y === candidate.Y)
-    ) {
-      const distance = Math.sqrt(
-        (currentPoint.X - candidate.X) ** 2 + (currentPoint.Y - candidate.Y) ** 2
-      );
-      if (distance < minDistance) {
-        minDistance = distance;
-        nextPoint = candidate;
-      }
-    }
-  }
-
-  if (nextPoint === null) {
-    const m = orderedPoints.pop();
-    ctx.beginPath();
-    ctx.ellipse(m.X, m.Y, 3, 3, 0, 0, 2 * Math.PI);
-    ctx.stroke();
-  } else {
-    orderedPoints.push(nextPoint);
-    currentPoint = nextPoint;
-  }
-}
-
-  return orderedPoints;
-};
-
 export const sortPointsDFS = (points) => {
-  const visited = new Array(points.length).fill(false);
-  const orderedPoints = [];
+  // Находим центральную точку фигуры (среднее арифметическое всех точек)
+  const center = points.reduce(
+    (acc, p) => ({ X: acc.X + p.X, Y: acc.Y + p.Y }),
+    { X: 0, Y: 0 }
+  );
+  center.X /= points.length;
+  center.Y /= points.length;
 
-  const dfs = (currentIndex) => {
-    visited[currentIndex] = true;
-    orderedPoints.push(points[currentIndex]);
+  // Сортируем точки по углу между вектором, соединяющим центральную точку и точку, и осью X
+  const sorted = points.sort((a, b) => {
+    const angleA = Math.atan2(a.Y - center.Y, a.X - center.X);
+    const angleB = Math.atan2(b.Y - center.Y, b.X - center.X);
+    return angleA - angleB;
+  });
 
-    const adjacentPoints = findAdjacentPoints(currentIndex);
-    for (let i = 0; i < adjacentPoints.length; i++) {
-      const nextIndex = adjacentPoints[i];
-      if (!visited[nextIndex]) {
-        dfs(nextIndex);
-      }
-    }
-  };
-
-  dfs(0);
-
-  function findAdjacentPoints(index) {
-    const adjacentPoints = [];
-    for (let i = 0; i < points.length; i++) {
-      if (i !== index) {
-        const dx = points[i].X - points[index].X;
-        const dy = points[i].Y - points[index].Y;
-        if (Math.sqrt(dx * dx + dy * dy) <= 10) {
-          adjacentPoints.push(i);
-        }
-      }
-    }
-    adjacentPoints.sort((a, b) => {
-      const aDx = points[a].X - points[index].X;
-      const aDy = points[a].Y - points[index].Y;
-      const bDx = points[b].X - points[index].X;
-      const bDy = points[b].Y - points[index].Y;
-      return Math.atan2(aDy, aDx) - Math.atan2(bDy, bDx);
-    });
-    return adjacentPoints;
-  }
-
-  return orderedPoints;
+  return sorted;
 };
 
 export const sortPointsBFS = (points) => {
-  // Создаем Set для хранения посещенных точек
-
   const visited = new Set();
 
   // Создаем пустой массив для сохранения упорядоченных точек
@@ -118,7 +41,6 @@ export const sortPointsBFS = (points) => {
 
     // Находим все смежные точки
     const adjacentPoints = findAdjacentPoints(currentIndex);
-   // console.log(adjacentPoints);
     // Добавляем смежные точки в очередь, если они еще не были посещены
     for (let i = 0; i < adjacentPoints.length; i++) {
       const nextIndex = adjacentPoints[i];
@@ -149,59 +71,7 @@ export const sortPointsBFS = (points) => {
   return orderedPoints;
 };
 
-export const sortPoints = (points) => {
-  // Создаем массив посещенных точек
-  const visited = new Array(points.length).fill(false);
-
-  // Создаем пустой массив для сохранения упорядоченных точек
-  const orderedPoints = [];
-
-  // Начинаем обход в глубину с первой точки
-  dfs(0);
-
-  // Функция обхода в глубину
-  function dfs(index) {
-    // console.log(index)//{X: 479, Y: 183}    {X: 495, Y: 156}
-    // Помечаем текущую точку как посещенную
-    visited[index] = true;
-    // Добавляем текущую точку в упорядоченный массив
-    orderedPoints.push(points[index]);
-
-    // Находим все смежные точки
-    const adjacentPoints = findAdjacentPoints(index); //[738, 739, 747, 748, 756, 757, 758, 778]
-
-    // Рекурсивно вызываем функцию обхода в глубину для каждой смежной точки
-    for (let i = 0; i < adjacentPoints.length; i++) {
-      const nextIndex = adjacentPoints[i];
-      if (!visited[nextIndex]) {
-        dfs(nextIndex);
-      }
-    }
-  }
-
-  // Функция для поиска смежных точек
-  function findAdjacentPoints(index) {
-    const adjacentPoints = [];
-    for (let i = 0; i < points.length; i++) {
-      if (i !== index) {
-        const dx = points[i].X - points[index].X;
-        const dy = points[i].Y - points[index].Y;
-
-        //console.log(points[i],points[index])   779
-        // Если точки находятся достаточно близко, то они считаются смежными
-        if (Math.sqrt(dx * dx + dy * dy) <= 3) {
-          adjacentPoints.push(i);
-        }
-      }
-    }
-    return adjacentPoints;
-  }
-
-  return orderedPoints;
-};
-
 export const obrMass = (test) => {
-  //ОБРАБОТКА МАССИВА
   let j = test.length;
   let max = test.length - 1;
   let flag = false;
@@ -212,7 +82,6 @@ export const obrMass = (test) => {
       flag = false;
     }
     if (i === 0 || flag) {
-      //  console.log("Пропуск")
       //Оставлять точки, расположенные слева-направо в исходном виде
       while (test[i].Y === test[i + 1].Y && test[i + 1].X - test[i].X <= 10) {
         i += 1;
@@ -286,11 +155,9 @@ export const NotEmptyTreangle = (pb, pe, pt, G) => {
 
 export const creatingShell = () => {
   let ctx = canvasState.canvas.getContext("2d");
-
   const width = canvasState.canvas.width;
   const height = canvasState.canvas.height;
-
-  let imgData = ctx.getImageData(0, 0, width, height);
+  const imgData = ctx.getImageData(0, 0, width, height);
   let test = [];
 
   for (let i = 0; i < imgData.data.length; i += 4) {
@@ -342,7 +209,6 @@ export const creatingShell = () => {
 };
 
 export const grahamAlgorithm = (test) => {
-  let ctx = canvasState.canvas.getContext("2d");
   let P = [];
   for (let i = 0; i < test.length; i++) {
     P.push(i); // добавляем каждое число в массив
@@ -365,7 +231,7 @@ export const grahamAlgorithm = (test) => {
       j -= 1;
     }
   }
- 
+
   let S = [P[0], P[1]];
   for (let i = 2; i < test.length; i++) {
     while (
@@ -381,15 +247,14 @@ export const grahamAlgorithm = (test) => {
   }
   P = S;
 
-  let MBO = []
+  let MBO = [];
   for (let i = 0; i < P.length; i++) {
-    MBO.push(test[P[i]])
+    MBO.push(test[P[i]]);
   }
   return MBO;
 };
 
 export const notConvexHull = (MBO, test) => {
-  let ctx = canvasState.canvas.getContext("2d");
   let nh = MBO.length;
   let G = test.filter((o) => !MBO.some((i) => i.X === o.X && i.Y === o.Y));
   G.map((o) => {
@@ -401,7 +266,6 @@ export const notConvexHull = (MBO, test) => {
     if (check !== 0) {
       im += check;
     }
-    //let im = i%nh
 
     let pb = MBO[im];
     let pe = MBO[(im + 1) % MBO.length];
@@ -422,30 +286,7 @@ export const notConvexHull = (MBO, test) => {
           ) / 2;
 
         if (Sqt < Sqmax) continue;
-        if (pt.X === 513 && pt.Y === 30) {
-          //console.log("NAZCHOL", pb, pe, pt);
 
-          toolState.setStrokeColor("rgba(255, 0, 255, 1)");
-          toolState.setFillColor("rgba(255, 0, 255, 1)");
-          toolState.setLineWidth(1);
-          ctx.beginPath();
-          ctx.ellipse(pt.X, pt.Y, 3, 3, 0, 0, 2 * Math.PI);
-          ctx.stroke();
-
-          toolState.setStrokeColor("rgba(255, 0, 0, 1)");
-          toolState.setFillColor("rgba(255, 0, 0, 1)");
-          toolState.setLineWidth(1);
-          ctx.beginPath();
-          ctx.ellipse(pb.X, pb.Y, 3, 3, 0, 0, 2 * Math.PI);
-          ctx.stroke();
-
-          toolState.setStrokeColor("rgba(0, 255, 0, 1)");
-          toolState.setFillColor("rgba(0, 255, 0, 1)");
-          toolState.setLineWidth(1);
-          ctx.beginPath();
-          ctx.ellipse(pe.X, pe.Y, 3, 3, 0, 0, 2 * Math.PI);
-          ctx.stroke();
-        }
         if (NotEmptyTreangle(pb, pe, pt, G)) continue;
 
         if (IsCrossHull(pb, pe, pt, MBO)) continue;
@@ -454,21 +295,14 @@ export const notConvexHull = (MBO, test) => {
       }
     }
     if (jpt >= 0) {
-      // toolState.setStrokeColor("rgba(255, 0, 0, 1)");
-      // toolState.setFillColor("rgba(255, 0, 0, 1)");
-      // toolState.setLineWidth(3);
-      // ctx.beginPath();
-      // ctx.ellipse(G[jpt].X, G[jpt].Y, 5, 5, 0, 0, 2 * Math.PI);
-      // ctx.fill();
       MBO.splice(im + 1, 0, G[jpt]);
       G.splice(jpt, 1);
       check = 0;
     } else {
       check += 1;
     }
-    // break;
   }
-  //console.log(MBO);
+
   return MBO;
 };
 
@@ -503,7 +337,6 @@ export const checkSegmentsIntersection = (p1, p2, p3, p4) => {
 };
 
 export const IsCrossHull = (pb, pe, pt, MBO) => {
-  let ctx = canvasState.canvas.getContext("2d");
   for (let i = 0; i < MBO.length - 1; i++) {
     let m1 = MBO[i];
     let m2 = MBO[i + 1];
@@ -512,27 +345,6 @@ export const IsCrossHull = (pb, pe, pt, MBO) => {
       checkSegmentsIntersection(pb, pt, m1, m2) ||
       checkSegmentsIntersection(pe, pt, m1, m2)
     ) {
-      // if(pt.X=== 513 && pt.Y === 30){
-      //   if(checkSegmentsIntersection(pb,pt,m1,m2) )
-      //   console.log("gggggggggggggggggg")
-      //     console.log(pb,pt,m1,m2,)
-      //     toolState.setStrokeColor("rgba(0, 255, 255, 1)");
-      //     toolState.setFillColor("rgba(0, 255, 255, 1)");
-      //     toolState.setLineWidth(3);
-      //     ctx.beginPath();
-      //     ctx.moveTo(pb.X, pb.Y);
-      //     ctx.lineTo(pt.X, pt.Y);
-      //     ctx.stroke();
-
-      // toolState.setStrokeColor("rgba(255, 0, 0, 1)");
-      // toolState.setFillColor("rgba(255, 0,0, 1)");
-      // toolState.setLineWidth(3);
-      // ctx.beginPath();
-      // ctx.moveTo(m1.X, m1.Y);
-      // ctx.lineTo(m2.X, m2.Y);
-      // ctx.stroke();
-
-      //}
       return 1;
     }
   }

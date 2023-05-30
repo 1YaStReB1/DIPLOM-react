@@ -94,7 +94,11 @@ ctx.rect(0, 0, canvasState.canvas.width, canvasState.canvas.height)
 
   toolState.setStrokeColor("rgba(255, 255, 255, 1)")
   toolState.setFillColor("rgba(255, 255, 255, 1)")
-  canvasState.figureList.forEach( fig => {fig.draw()})   
+  canvasState.figureList = canvasState.figureList.filter(fig => fig !== null);
+
+  canvasState.figureList.forEach(fig => {
+    fig.draw();
+  }); 
 }
 
 export const save = () =>{

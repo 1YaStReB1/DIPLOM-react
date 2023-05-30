@@ -4,7 +4,8 @@ import {
   figureState,
 } from "../../../helpers/importsState";
 import { Polygon, Ellipse, Rectangle } from "../../../helpers/importsFigures";
-import { checkSegmentsIntersection, creatingShell, grahamAlgorithm, IndexMaxSide, kdTree, kdTree2, notConvexHull, NotEmptyTreangle, obrMass, rotate, sortPoints, sortPointsBFS, sortPointsDFS, SortPosledovat } from "./obtMass";
+import { creatingShell,  grahamAlgorithm, notConvexHull, obrMass,  sortPointsBFS, sortPointsDFS } from "./obtMass";
+
 
 export const changeWidth = (e) => {
   toolState.setLineWidth(e.target.value);
@@ -99,19 +100,16 @@ export const convertMaskToJson = (algoritm) => {
   figureState.setFigure(new Polygon(canvasState.canvas));
   
 
-  let [test,imgData] = creatingShell()
+ let [test,imgData] = creatingShell()
+
     ctx.putImageData(imgData, 0, 0);
    
- 
+
 
 switch(algoritm){
-  case "sortPosledovat": test = SortPosledovat(test); console.log("sortPosledovat");
-  break;
   case "sortPointsDFS": test = sortPointsDFS(test); console.log("sortPointsDFS");
   break;
   case "sortPointsBFS": test = sortPointsBFS(test); console.log("sortPointsBFS");
-  break;
-  case "sortPoints": test = sortPoints(test); console.log("sortPoints");
   break;
   case "obrMass": test = obrMass(test); console.log("obrMass");
   break;
@@ -145,6 +143,7 @@ let MBO = []
   toolState.setFillColor("black");
   canvasState.pushToFigure(figureState.figure);
  
- 
+ console.log(test)
+
   
 };
